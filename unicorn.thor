@@ -10,7 +10,7 @@ require 'thor'
 # $ thor unicorn:hup     # reload setting
 
 class Unicorn < Thor
-  APP_NAME = "your_app_name"
+  APP_NAME = File.basename(File.dirname(File.absolute_path(__FILE__)))
   ROOT = File.expand_path('../', __FILE__)
 
   desc "start", 'unicorn start'
