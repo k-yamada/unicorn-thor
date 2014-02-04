@@ -10,7 +10,6 @@ require 'thor'
 # $ thor unicorn:hup     # reload setting
 
 class Unicorn < Thor
-  APP_NAME = File.basename(File.dirname(File.absolute_path(__FILE__)))
   ROOT = File.expand_path('../', __FILE__)
 
   desc "start", 'unicorn start'
@@ -46,16 +45,16 @@ class Unicorn < Thor
   private
 
   def unicorn_pid
-    path = "/tmp/#{APP_NAME}.pid"
+    path = "tmp/pids/unicorn.pid"
     if File.exists? path
-      `cat /tmp/#{APP_NAME}.pid`.chomp
+      `cat #{path}`.chomp
     else
       false
     end
   end
 
   def unicorn_old_pid
-    `cat /tmp/#{APP_NAME}.pid.oldbin`.chomp
+    `cat tmp/pids/unicorn.pid.oldbin`.chomp
   end
 
   def send_signal_to_unicorn(pid, signal, failed_message='Not running.')
